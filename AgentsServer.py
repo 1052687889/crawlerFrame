@@ -240,9 +240,6 @@ class xicidaili_AgentsServerCrawler(AgentsServerCrawler):
             page_num = 10
             user_agent.handle_headers(self.headers)
             text = self.get_html(url=self.url)
-            user_agent.handle_headers(self.headers)
-            res = requests.get(url=self.url,headers=self.headers,timeout=timeout)
-            res.encoding = self.encoding
             reres = re.findall('<li><a class="false" href="([\s\S]*?)">国内([\s\S]*?)</a></li>',text)
             aurl = (self.url + i[0][1:] for i in reres)
             urls = [u+str(i)+'/'for u in aurl for i in range(1,1+page_num)]
@@ -276,8 +273,8 @@ class xicidaili_AgentsServerCrawler(AgentsServerCrawler):
         return revlist
 
 class AgentsServerPool(object):
-    xicidaili = xicidaili_AgentsServerCrawler(5)
-    _66ip = _66ip_AgentsServerCrawler(5)
+    xicidaili = xicidaili_AgentsServerCrawler(20)
+    _66ip = _66ip_AgentsServerCrawler(20)
     AgentsCrawlerList = [xicidaili,_66ip]
     def update_AgentServerSource(self):
         sn = db.DBSession()

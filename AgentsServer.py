@@ -15,7 +15,6 @@ import multiprocessing
 import threadpool
 import threading
 import queue
-import mythread
 
 class AgentsServerCrawler(object):
     def __init__(self,process_num=10):
